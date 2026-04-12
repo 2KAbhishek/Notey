@@ -1,4 +1,4 @@
-package com.iam2kabhishek.notey.data.local
+package com.iam2kabhishek.notey.data
 
 import androidx.room.RoomDatabase
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
