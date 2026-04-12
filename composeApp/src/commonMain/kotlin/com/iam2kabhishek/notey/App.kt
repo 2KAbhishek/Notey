@@ -6,7 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.iam2kabhishek.notey.data.local.NoteEntity
+import com.iam2kabhishek.notey.data.notes.NoteEntity
 import com.iam2kabhishek.notey.di.AppContainer
 import com.iam2kabhishek.notey.ui.screens.NoteDetailScreen
 import com.iam2kabhishek.notey.ui.screens.NoteListScreen

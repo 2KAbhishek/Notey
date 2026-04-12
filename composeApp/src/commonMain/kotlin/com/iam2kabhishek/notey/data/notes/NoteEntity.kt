@@ -1,4 +1,4 @@
-package com.iam2kabhishek.notey.data.local
+package com.iam2kabhishek.notey.data.notes
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

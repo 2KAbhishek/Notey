@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.iam2kabhishek.notey.data.local.NoteEntity
+import com.iam2kabhishek.notey.data.notes.NoteEntity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

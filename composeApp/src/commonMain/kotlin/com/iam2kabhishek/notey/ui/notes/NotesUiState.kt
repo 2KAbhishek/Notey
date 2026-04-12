@@ -1,6 +1,6 @@
 package com.iam2kabhishek.notey.ui.notes
 
-import com.iam2kabhishek.notey.data.local.NoteEntity
+import com.iam2kabhishek.notey.data.notes.NoteEntity
 
 data class NotesUiState(
     val notes: List<NoteEntity> = emptyList(),
