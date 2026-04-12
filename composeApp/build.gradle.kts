@@ -92,7 +92,6 @@ room {
 }
 
 dependencies {
-    add("kspCommonMainMetadata", libs.androidx.room.compiler)
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspIosSimulatorArm64", libs.androidx.room.compiler)
     add("kspIosArm64", libs.androidx.room.compiler)
@@ -110,4 +109,15 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+tasks.register("checkAll") {
+    group = "verification"
+    description = "Runs KMP compile checks and Android lint"
+    dependsOn(
+        "compileKotlinJvm",
+        "compileKotlinIosSimulatorArm64",
+        "assembleDebug",
+        "lintDebug"
+    )
 }
