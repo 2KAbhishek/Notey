@@ -1,4 +1,4 @@
-package com.iam2kabhishek.notey.di
+package com.iam2kabhishek.notey
 
 import com.iam2kabhishek.notey.data.buildDatabase
 import com.iam2kabhishek.notey.data.getDatabaseBuilder
