@@ -1,7 +1,5 @@
-package com.iam2kabhishek.notey.data.repository
+package com.iam2kabhishek.notey.data.notes
 
-import com.iam2kabhishek.notey.data.notes.NoteDao
-import com.iam2kabhishek.notey.data.notes.NoteEntity
 import kotlinx.coroutines.flow.Flow
 import kotlin.time.Clock
 

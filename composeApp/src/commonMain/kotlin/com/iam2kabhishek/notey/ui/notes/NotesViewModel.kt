@@ -3,7 +3,7 @@ package com.iam2kabhishek.notey.ui.notes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iam2kabhishek.notey.data.notes.NoteEntity
-import com.iam2kabhishek.notey.data.repository.NoteRepository
+import com.iam2kabhishek.notey.data.notes.NoteRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
