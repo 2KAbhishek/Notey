@@ -1,4 +1,4 @@
-package com.iam2kabhishek.notey.ui.notes
+package com.iam2kabhishek.notey.ui
 
 import com.iam2kabhishek.notey.data.notes.NoteEntity
 

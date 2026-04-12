@@ -1,4 +1,4 @@
-package com.iam2kabhishek.notey.ui.notes
+package com.iam2kabhishek.notey.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
