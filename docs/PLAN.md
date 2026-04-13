@@ -65,6 +65,7 @@ Learning checkpoint:
 - [x] 2.2 Implement NoteListScreen UI
 - [x] 2.3 Implement NoteDetailScreen (create/edit)
 - [x] 2.4 Implement delete functionality
+- [x] 2.5 Add i18n support for multi-language UI
 
 Acceptance criteria:
 - [x] User can create, edit, and delete notes from UI

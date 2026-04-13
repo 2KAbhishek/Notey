@@ -24,6 +24,11 @@ import androidx.compose.ui.unit.dp
 import com.iam2kabhishek.notey.data.notes.NoteEntity
 import com.iam2kabhishek.notey.ui.NotesUiState
 import com.iam2kabhishek.notey.ui.components.NoteCard
+import org.jetbrains.compose.resources.stringResource
+import notey.composeapp.generated.resources.Res
+import notey.composeapp.generated.resources.app_name
+import notey.composeapp.generated.resources.error_prefix
+import notey.composeapp.generated.resources.msg_no_notes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,7 +40,7 @@ fun NoteListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Notey") },
+                title = { Text(stringResource(Res.string.app_name)) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -61,7 +66,7 @@ fun NoteListScreen(
                 }
                 uiState.error != null -> {
                     Text(
-                        text = "Error: ${uiState.error}",
+                        text = stringResource(Res.string.error_prefix, uiState.error),
                         color = MaterialTheme.colorScheme.error,
                         modifier = Modifier
                             .align(Alignment.Center)
@@ -70,7 +75,7 @@ fun NoteListScreen(
                 }
                 uiState.notes.isEmpty() -> {
                     Text(
-                        text = "No notes yet. Tap + to create one.",
+                        text = stringResource(Res.string.msg_no_notes),
                         modifier = Modifier
                             .align(Alignment.Center)
                             .padding(16.dp),

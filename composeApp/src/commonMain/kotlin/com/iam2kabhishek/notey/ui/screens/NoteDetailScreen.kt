@@ -24,6 +24,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.iam2kabhishek.notey.data.notes.NoteEntity
+import org.jetbrains.compose.resources.stringResource
+import notey.composeapp.generated.resources.Res
+import notey.composeapp.generated.resources.action_cancel
+import notey.composeapp.generated.resources.action_delete
+import notey.composeapp.generated.resources.action_save
+import notey.composeapp.generated.resources.label_content
+import notey.composeapp.generated.resources.label_title
+import notey.composeapp.generated.resources.title_edit_note
+import notey.composeapp.generated.resources.title_new_note
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,11 +50,19 @@ fun NoteDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(if (isEditing) "Edit Note" else "New Note") },
+                title = { 
+                    Text(
+                        if (isEditing) stringResource(Res.string.title_edit_note) 
+                        else stringResource(Res.string.title_new_note)
+                    ) 
+                },
                 actions = {
                     if (isEditing) {
                         TextButton(onClick = onDelete) {
-                            Text("Delete", color = MaterialTheme.colorScheme.error)
+                            Text(
+                                stringResource(Res.string.action_delete), 
+                                color = MaterialTheme.colorScheme.error
+                            )
                         }
                     }
                 },
@@ -65,7 +82,7 @@ fun NoteDetailScreen(
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
-                label = { Text("Title") },
+                label = { Text(stringResource(Res.string.label_title)) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
@@ -75,7 +92,7 @@ fun NoteDetailScreen(
             OutlinedTextField(
                 value = content,
                 onValueChange = { content = it },
-                label = { Text("Content") },
+                label = { Text(stringResource(Res.string.label_content)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
@@ -89,7 +106,7 @@ fun NoteDetailScreen(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = title.isNotBlank() || content.isNotBlank()
             ) {
-                Text("Save")
+                Text(stringResource(Res.string.action_save))
             }
             
             Spacer(modifier = Modifier.height(8.dp))
@@ -98,7 +115,7 @@ fun NoteDetailScreen(
                 onClick = onBack,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Cancel")
+                Text(stringResource(Res.string.action_cancel))
             }
         }
     }

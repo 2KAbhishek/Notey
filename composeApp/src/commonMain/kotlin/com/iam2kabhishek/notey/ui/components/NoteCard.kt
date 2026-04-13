@@ -16,6 +16,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.iam2kabhishek.notey.data.notes.NoteEntity
+import org.jetbrains.compose.resources.stringResource
+import notey.composeapp.generated.resources.Res
+import notey.composeapp.generated.resources.default_note_title
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +39,7 @@ fun NoteCard(
                 .padding(16.dp)
         ) {
             Text(
-                text = note.title.ifEmpty { "Untitled" },
+                text = note.title.ifEmpty { stringResource(Res.string.default_note_title) },
                 style = MaterialTheme.typography.titleMedium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
