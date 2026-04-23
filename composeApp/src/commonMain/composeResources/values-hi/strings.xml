@@ -5,10 +5,10 @@
     <string name="title_edit_note">नोट संपादित करें</string>
     <string name="title_new_note">नया नोट</string>
     <string name="action_delete">मिटाएं</string>
+    <string name="action_back">वापस</string>
     <string name="label_title">शीर्षक</string>
     <string name="label_content">सामग्री</string>
     <string name="action_save">सहेजें</string>
-    <string name="action_cancel">रद्द करें</string>
     <string name="msg_no_notes">अभी कोई नोट नहीं हैं। नोट बनाने के लिए + पर टैप करें।</string>
     <string name="error_prefix">त्रुटि: %s</string>
 </resources>

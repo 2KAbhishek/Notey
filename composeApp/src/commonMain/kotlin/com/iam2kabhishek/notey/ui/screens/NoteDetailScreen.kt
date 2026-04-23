@@ -7,14 +7,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FilledTonalIconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -25,10 +30,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.iam2kabhishek.notey.data.notes.NoteEntity
 import org.jetbrains.compose.resources.stringResource
 import notey.composeapp.generated.resources.Res
+import notey.composeapp.generated.resources.action_back
 import notey.composeapp.generated.resources.action_delete
 import notey.composeapp.generated.resources.action_save
 import notey.composeapp.generated.resources.label_content
@@ -61,15 +66,24 @@ fun NoteDetailScreen(
                 },
                 navigationIcon = {
                     FilledTonalIconButton(onClick = onBack) {
-                        Text("←", fontSize = 20.sp)
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(Res.string.action_back)
+                        )
                     }
                 },
                 actions = {
                     if (isEditing) {
-                        TextButton(onClick = onDelete) {
-                            Text(
-                                stringResource(Res.string.action_delete),
-                                color = MaterialTheme.colorScheme.error
+                        FilledTonalIconButton(
+                            onClick = onDelete,
+                            colors = IconButtonDefaults.filledTonalIconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.errorContainer,
+                                contentColor = MaterialTheme.colorScheme.onErrorContainer
+                            )
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Delete,
+                                contentDescription = stringResource(Res.string.action_delete)
                             )
                         }
                     }
@@ -77,7 +91,10 @@ fun NoteDetailScreen(
                         onClick = { onSave(title, content) },
                         enabled = canSave
                     ) {
-                        Text("✓", fontSize = 20.sp)
+                        Icon(
+                            imageVector = Icons.Filled.Check,
+                            contentDescription = stringResource(Res.string.action_save)
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
