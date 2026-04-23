@@ -77,8 +77,8 @@ fun NoteDetailScreen(
                         FilledTonalIconButton(
                             onClick = onDelete,
                             colors = IconButtonDefaults.filledTonalIconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.errorContainer,
-                                contentColor = MaterialTheme.colorScheme.onErrorContainer
+                                containerColor = MaterialTheme.colorScheme.error,
+                                contentColor = MaterialTheme.colorScheme.onError
                             )
                         ) {
                             Icon(
