@@ -130,8 +130,6 @@ fun NoteDetailScreen(
                     .weight(1f),
                 minLines = 5
             )
-
-            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
