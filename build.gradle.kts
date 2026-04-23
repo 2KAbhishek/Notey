@@ -18,14 +18,23 @@ val iosAppBundleId = providers.gradleProperty("iosBundleId")
     .orElse("com.iam2kabhishek.notey.Notey")
 val iosAppName = providers.gradleProperty("iosAppName")
     .orElse("Notey")
+val iosSimulatorId = providers.gradleProperty("iosSimulatorId")
+    .orElse(providers.environmentVariable("IOS_SIMULATOR_ID"))
 val iosProjectPath = "iosApp/iosApp.xcodeproj"
 val iosScheme = "iosApp"
 val iosDerivedDataPath = "${rootProject.rootDir}/.xcodebuild"
+val iosSimulatorDerivedDataPath = "${rootProject.rootDir}/.xcodebuild-sim"
 
 fun requireIosDeviceId(): String = iosDeviceId.orNull
     ?: throw GradleException(
         "Missing iOS device id. Set -PiosDeviceId=<udid> or IOS_DEVICE_ID in your environment. " +
             "Find your device id with: xcrun xctrace list devices"
+    )
+
+fun requireIosSimulatorId(): String = iosSimulatorId.orNull
+    ?: throw GradleException(
+        "Missing iOS simulator id. Set -PiosSimulatorId=<udid> or IOS_SIMULATOR_ID in your environment. " +
+            "Find simulator ids with: xcrun simctl list devices available"
     )
 
 tasks.register<Exec>("iosDeviceBuild") {
@@ -90,4 +99,62 @@ tasks.register("iosDeviceRun") {
     notCompatibleWithConfigurationCache("Depends on iOS device tasks that use local dynamic parameters")
     dependsOn("iosDeviceInstall")
     finalizedBy("iosDeviceLaunch")
+}
+
+tasks.register<Exec>("iosSimulatorBuild") {
+    group = "ios"
+    description = "Builds iosApp for an iOS Simulator"
+    notCompatibleWithConfigurationCache("Uses dynamic local iOS simulator parameters")
+    doFirst {
+        environment("DEVELOPER_DIR", iosDeveloperDir.get())
+        commandLine(
+            "xcodebuild",
+            "-project", iosProjectPath,
+            "-scheme", iosScheme,
+            "-configuration", "Debug",
+            "-destination", "id=${requireIosSimulatorId()}",
+            "-derivedDataPath", iosSimulatorDerivedDataPath,
+            "build"
+        )
+    }
+}
+
+tasks.register<Exec>("iosSimulatorInstall") {
+    group = "ios"
+    description = "Installs iosApp on an iOS Simulator"
+    notCompatibleWithConfigurationCache("Uses dynamic local iOS simulator parameters")
+    dependsOn("iosSimulatorBuild")
+    doFirst {
+        environment("DEVELOPER_DIR", iosDeveloperDir.get())
+        commandLine(
+            "zsh",
+            "-lc",
+            "xcrun simctl boot '${requireIosSimulatorId()}' || true; " +
+                "xcrun simctl bootstatus '${requireIosSimulatorId()}' -b; " +
+                "xcrun simctl install '${requireIosSimulatorId()}' '${iosSimulatorDerivedDataPath}/Build/Products/Debug-iphonesimulator/${iosAppName.get()}.app'"
+        )
+    }
+}
+
+tasks.register<Exec>("iosSimulatorLaunch") {
+    group = "ios"
+    description = "Launches iosApp on an iOS Simulator"
+    notCompatibleWithConfigurationCache("Uses dynamic local iOS simulator parameters")
+    doFirst {
+        environment("DEVELOPER_DIR", iosDeveloperDir.get())
+        commandLine(
+            "zsh",
+            "-lc",
+            "open -a Simulator; " +
+                "xcrun simctl launch '${requireIosSimulatorId()}' '${iosAppBundleId.get()}'"
+        )
+    }
+}
+
+tasks.register("iosSimulatorRun") {
+    group = "ios"
+    description = "Builds, installs, and launches iosApp on an iOS Simulator"
+    notCompatibleWithConfigurationCache("Depends on iOS simulator tasks that use local dynamic parameters")
+    dependsOn("iosSimulatorInstall")
+    finalizedBy("iosSimulatorLaunch")
 }
