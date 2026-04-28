@@ -1,4 +1,5 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.compose.resources.ResourcesExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -183,6 +184,13 @@ ksp { }
 
 room {
     schemaDirectory("$projectDir/schemas")
+}
+
+compose {
+    resources {
+        // Snapshot coordinate != plugin’s Auto check string (1.10.3); force generation.
+        generateResClass = ResourcesExtension.ResourceClassGeneration.Always
+    }
 }
 
 dependencies {

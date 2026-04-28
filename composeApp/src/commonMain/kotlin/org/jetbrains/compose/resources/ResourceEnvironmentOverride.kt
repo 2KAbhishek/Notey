@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 @Composable
 fun ProvideResourceEnvironment(
     language: String? = null,
+    script: String? = null,
     region: String? = null,
     isDark: Boolean? = null,
     density: Float? = null,
@@ -25,9 +26,10 @@ fun ProvideResourceEnvironment(
     val currentComposeEnv = LocalComposeEnvironment.current
     val currentEnv = currentComposeEnv.rememberEnvironment()
 
-    val newEnv = remember(currentEnv, language, region, isDark, density) {
+    val newEnv = remember(currentEnv, language, script, region, isDark, density) {
         ResourceEnvironment(
             language = language?.let { LanguageQualifier(it) } ?: currentEnv.language,
+            script = script?.let { ScriptQualifier(it) } ?: currentEnv.script,
             region = region?.let { RegionQualifier(it) } ?: currentEnv.region,
             theme = isDark?.let { ThemeQualifier.selectByValue(it) } ?: currentEnv.theme,
             density = density?.let { DensityQualifier.selectByDensity(it) } ?: currentEnv.density,

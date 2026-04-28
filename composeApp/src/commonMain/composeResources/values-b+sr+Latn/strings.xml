@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Serbian (Latin script) — sr-Latn. Folder uses BCP: values-b+sr+Latn -->
+    <string name="app_name">Notey</string>
+    <string name="error_failed_to_load_notes">Nije moguće učitati beleške</string>
+    <string name="default_note_title">Bez naslova</string>
+    <string name="title_edit_note">Uredi belešku</string>
+    <string name="title_new_note">Nova beleška</string>
+    <string name="action_delete">Obriši</string>
+    <string name="label_title">Naslov</string>
+    <string name="label_content">Sadržaj</string>
+    <string name="action_save">Sačuvaj</string>
+    <string name="action_back">Nazad</string>
+    <string name="msg_no_notes">Još nema beleški. Dodirni + da napraviš jednu.\n[values-b+sr+Latn]</string>
+    <string name="error_prefix">Greška: %s</string>
+</resources>

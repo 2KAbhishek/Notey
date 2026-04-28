@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Same as values-dark-b+zh+Hant; path uses BCP first then -dark (zh-Hant + dark theme). -->
+    <string name="app_name">Notey</string>
+    <string name="error_failed_to_load_notes">無法載入筆記</string>
+    <string name="default_note_title">無標題</string>
+    <string name="title_edit_note">編輯筆記</string>
+    <string name="title_new_note">新增筆記</string>
+    <string name="action_delete">刪除</string>
+    <string name="label_title">標題</string>
+    <string name="label_content">內容</string>
+    <string name="action_save">儲存</string>
+    <string name="action_back">返回</string>
+    <string name="msg_no_notes">尚無筆記。點 + 以建立一則。\n[values-b+zh+Hant-dark]</string>
+    <string name="error_prefix">錯誤：%s</string>
+</resources>

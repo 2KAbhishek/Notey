@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BCP: language only (b+zh). Resolves for locales like zh, zh-CN with script unspecified. -->
+    <string name="app_name">Notey</string>
+    <string name="error_failed_to_load_notes">无法加载笔记</string>
+    <string name="default_note_title">无标题</string>
+    <string name="title_edit_note">编辑笔记</string>
+    <string name="title_new_note">新建笔记</string>
+    <string name="action_delete">删除</string>
+    <string name="label_title">标题</string>
+    <string name="label_content">内容</string>
+    <string name="action_save">保存</string>
+    <string name="action_back">返回</string>
+    <string name="msg_no_notes">还没有笔记。点 + 创建一条。\n[values-b+zh]</string>
+    <string name="error_prefix">错误：%s</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spanish (Latin America) — es-419. Verify: set emulator locale to Español (Latinoamérica) or similar. -->
+    <string name="app_name">Notey</string>
+    <string name="error_failed_to_load_notes">No se pudieron cargar las notas</string>
+    <string name="default_note_title">Sin título</string>
+    <string name="title_edit_note">Editar nota</string>
+    <string name="title_new_note">Nota nueva</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="label_title">Título</string>
+    <string name="label_content">Contenido</string>
+    <string name="action_save">Guardar</string>
+    <string name="action_back">Atrás</string>
+    <string name="msg_no_notes">Aún no hay notas. Toca + para crear una.\n[values-b+es+419]</string>
+    <string name="error_prefix">Error: %s</string>
+</resources>

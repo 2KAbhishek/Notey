@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- English dark theme — values-dark. Wins when locale resolves to English (default) and uiMode=night. -->
     <string name="app_name">Notey</string>
     <string name="error_failed_to_load_notes">Failed to load notes</string>
     <string name="default_note_title">Untitled</string>
@@ -9,9 +11,6 @@
     <string name="label_title">Title</string>
     <string name="label_content">Content</string>
     <string name="action_save">Save</string>
-    <string name="msg_no_notes">No notes yet. Tap + to create one.\n[values]</string>
+    <string name="msg_no_notes">No notes yet. Tap + to create one.\n[values-dark]</string>
     <string name="error_prefix">Error: %s</string>
-    <string name="notey_footer">Made with %1$s by %2$s</string>
-    <string name="notey_footer_heart">❤️</string>
-    <string name="notey_footer_author">2KAbhishek</string>
 </resources>
