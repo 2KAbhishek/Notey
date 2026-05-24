@@ -20,81 +20,95 @@
 <a href="https://github.com/2KAbhishek/Notey/pulse">
 <img alt="Last Updated" src="https://img.shields.io/github/last-commit/2kabhishek/Notey?style=flat&color=e06c75&label="> </a>
 
-<h3>Short Sweet Headline 🎇🎉</h3>
+<h3>Note taking with KMP 📝📱</h3>
 
 <figure>
-  <img src="docs/images/screenshot.png" alt="Notey in action">
+  <img src="docs/images/screenshot.jpg" alt="Notey in action">
   <br/>
   <figcaption>Notey in action</figcaption>
 </figure>
 
 </div>
 
-Notey is a `<utility/tool>` that allows `<target_audience>` to `<action>`.
+Notey is a Kotlin Multiplatform note-taking app that allows users to create, edit, delete, and persist local notes across Android, iOS, and desktop systems.
 
 ## ✨ Features
 
-- Comes with a ready to go README template
-- Works with [mkrepo](https://github.com/2kabhishek/mkrepo)
+- Create, edit, and delete notes
+- Persist notes locally with Room KMP and SQLite
+- Shared Compose Multiplatform UI for Android, iOS, and desktop
+- Localized app strings for English, Spanish, and Hindi
+- Gradle tasks for Android, JVM desktop, iOS simulator, and physical iOS device workflows
 
 ## ⚡ Setup
 
 ### ⚙️ Requirements
 
-- foo >= bar
-- bazz
+- JDK 21
+- Android SDK with API 36 for Android builds
+- Xcode for iOS builds
+- Android emulator/device or iOS simulator/device for running platform apps
 
 ### 💻 Installation
 
-Installing Notey is as simple as cloning and symlinking!
+Installing Notey is as simple as cloning and running the verification task.
 
 ```bash
-git clone https://github.com/2kabhishek/Notey
+git clone git@github.com:2KAbhishek/Notey.git
 cd Notey
-<install_command>
+./gradlew :composeApp:checkAll
 ```
 
 ## 🚀 Usage
 
 ```bash
 USAGE:
-    Notey [FLAGS] [OPTIONS]
-Example:
-    Notey
+    ./gradlew <task> [OPTIONS]
+
+Examples:
+    ./gradlew :composeApp:assembleDebug
+    ./gradlew :composeApp:run
+    ./gradlew iosSimulatorRun -PiosSimulatorId=<simulator-udid>
+    ./gradlew iosDeviceRun -PiosDeviceId=<device-udid>
+```
+
+Helpful iOS device lookup commands:
+
+```bash
+xcrun simctl list devices available
+xcrun xctrace list devices
 ```
 
 ## 🏗️ What's Next
 
-Planning to add `<feature/module>`.
+Planning to add search, note timestamps, sorting, share-to-app support, and Markdown export.
 
 ### ✅ To-Do
 
-- [x] Setup repo
-- [ ] Think real hard
-- [ ] Start typing
+- [x] Build core note CRUD flow
+- [x] Add Room KMP persistence
+- [x] Add Android, iOS, and desktop targets
+- [ ] Add search and sort options
+- [ ] Add Markdown export
 
 ## 🧑‍💻 Behind The Code
 
 ### 🌈 Inspiration
 
-Notey was inspired by `<reason/idea>`.
+Notey was inspired by the need for a small real-world app to learn Kotlin Multiplatform development and to experiment with.
 
 ### 💡 Challenges/Learnings
 
-- The main challenges were `<issue/difficulty>`
-- I learned about `<learning/accomplishment>`
+- The main challenges were aligning Kotlin, Compose Multiplatform, KSP, Room KMP, and native iOS build tooling.
+- I learned about shared Compose UI, Room database generation across KMP targets, expect/actual platform boundaries, and Gradle task wiring for iOS workflows.
 
 ### 🧰 Tooling
 
-- [dots2k](https://github.com/2kabhishek/dots2k) — Dev Environment
-- [nvim2k](https://github.com/2kabhishek/nvim2k) — Personalized Editor
-- [sway2k](https://github.com/2kabhishek/sway2k) — Desktop Environment
-- [qute2k](https://github.com/2kabhishek/qute2k) — Personalized Browser
-
-### 🔍 More Info
-
-- [shelly](https://github.com/2kabhishek/shelly) — Command line template
-- [tiny-web](https://github.com/2kabhishek/tiny-web) — Web app template
+- [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) — Shared Kotlin codebase
+- [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) — Shared UI toolkit
+- [Room](https://developer.android.com/kotlin/multiplatform/room) — Local persistence
+- [Gradle](https://gradle.org/) — Build automation
+- [Xcode](https://developer.apple.com/xcode/) — iOS shell app builds
 
 <hr>
 
