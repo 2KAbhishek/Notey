@@ -9,6 +9,7 @@ import androidx.compose.runtime.setValue
 import com.iam2kabhishek.notey.data.notes.NoteEntity
 import com.iam2kabhishek.notey.ui.screens.NoteDetailScreen
 import com.iam2kabhishek.notey.ui.screens.NoteListScreen
+import com.iam2kabhishek.notey.ui.theme.NoteyTheme
 
 sealed class NoteScreen {
     data object List : NoteScreen()
@@ -22,41 +23,43 @@ fun App(platformContext: Any) {
     
     var currentScreen by remember { mutableStateOf<NoteScreen>(NoteScreen.List) }
     
-    when (val screen = currentScreen) {
-        is NoteScreen.List -> {
-            NoteListScreen(
-                uiState = uiState,
-                onNoteClick = { note -> 
-                    currentScreen = NoteScreen.Detail(note)
-                },
-                onAddClick = { 
-                    currentScreen = NoteScreen.Detail(null)
-                }
-            )
-        }
-        is NoteScreen.Detail -> {
-            NoteDetailScreen(
-                existingNote = screen.note,
-                onSave = { title, content ->
-                    if (screen.note != null) {
-                        appContainer.notesViewModel.updateNote(
-                            screen.note.copy(title = title, content = content)
-                        )
-                    } else {
-                        appContainer.notesViewModel.createNote(title, content)
+    NoteyTheme {
+        when (val screen = currentScreen) {
+            is NoteScreen.List -> {
+                NoteListScreen(
+                    uiState = uiState,
+                    onNoteClick = { note -> 
+                        currentScreen = NoteScreen.Detail(note)
+                    },
+                    onAddClick = { 
+                        currentScreen = NoteScreen.Detail(null)
                     }
-                    currentScreen = NoteScreen.List
-                },
-                onDelete = {
-                    screen.note?.let { note ->
-                        appContainer.notesViewModel.deleteNote(note)
+                )
+            }
+            is NoteScreen.Detail -> {
+                NoteDetailScreen(
+                    existingNote = screen.note,
+                    onSave = { title, content ->
+                        if (screen.note != null) {
+                            appContainer.notesViewModel.updateNote(
+                                screen.note.copy(title = title, content = content)
+                            )
+                        } else {
+                            appContainer.notesViewModel.createNote(title, content)
+                        }
+                        currentScreen = NoteScreen.List
+                    },
+                    onDelete = {
+                        screen.note?.let { note ->
+                            appContainer.notesViewModel.deleteNote(note)
+                        }
+                        currentScreen = NoteScreen.List
+                    },
+                    onBack = { 
+                        currentScreen = NoteScreen.List
                     }
-                    currentScreen = NoteScreen.List
-                },
-                onBack = { 
-                    currentScreen = NoteScreen.List
-                }
-            )
+                )
+            }
         }
     }
 }
