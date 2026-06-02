@@ -11,4 +11,7 @@
     <string name="action_save">Guardar</string>
     <string name="msg_no_notes">No hay notas todavía. Toca + para crear una.</string>
     <string name="error_prefix">Error: %s</string>
+    <string name="notey_footer">Hecho con %1$s por %2$s</string>
+    <string name="notey_footer_heart">❤️</string>
+    <string name="notey_footer_author">2KAbhishek</string>
 </resources>

@@ -11,4 +11,7 @@
     <string name="action_save">Save</string>
     <string name="msg_no_notes">No notes yet. Tap + to create one.</string>
     <string name="error_prefix">Error: %s</string>
+    <string name="notey_footer">Made with %1$s by %2$s</string>
+    <string name="notey_footer_heart">❤️</string>
+    <string name="notey_footer_author">2KAbhishek</string>
 </resources>

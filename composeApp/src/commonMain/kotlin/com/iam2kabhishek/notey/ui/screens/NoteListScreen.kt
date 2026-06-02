@@ -29,6 +29,13 @@ import notey.composeapp.generated.resources.Res
 import notey.composeapp.generated.resources.app_name
 import notey.composeapp.generated.resources.error_prefix
 import notey.composeapp.generated.resources.msg_no_notes
+import notey.composeapp.generated.resources.notey_footer
+import notey.composeapp.generated.resources.notey_footer_heart
+import notey.composeapp.generated.resources.notey_footer_author
+import com.iam2kabhishek.notey.utils.boldSubstrings
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.runtime.remember
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,6 +53,9 @@ fun NoteListScreen(
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             )
+        },
+        bottomBar = {
+            NoteyFooter()
         },
         floatingActionButton = {
             FloatingActionButton(onClick = onAddClick) {
@@ -121,4 +131,35 @@ fun NoteListScreenPreview() {
         onNoteClick = {},
         onAddClick = {}
     )
+}
+
+@Composable
+fun NoteyFooter() {
+    val heartText = stringResource(Res.string.notey_footer_heart)
+    val authorText = stringResource(Res.string.notey_footer_author)
+    val fullText = stringResource(
+        Res.string.notey_footer,
+        heartText,
+        authorText
+    )
+
+    val styledText = remember(fullText, authorText) {
+        buildAnnotatedString {
+            append(fullText)
+            boldSubstrings(fullText, authorText)
+        }
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = styledText,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
 }

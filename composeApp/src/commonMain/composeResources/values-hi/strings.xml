@@ -11,4 +11,7 @@
     <string name="action_save">सहेजें</string>
     <string name="msg_no_notes">अभी कोई नोट नहीं हैं। नोट बनाने के लिए + पर टैप करें।</string>
     <string name="error_prefix">त्रुटि: %s</string>
+    <string name="notey_footer">%2$s द्वारा %1$s के साथ बनाया गया</string>
+    <string name="notey_footer_heart">❤️</string>
+    <string name="notey_footer_author">2KAbhishek</string>
 </resources>
