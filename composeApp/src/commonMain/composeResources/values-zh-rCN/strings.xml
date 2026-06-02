@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Notey</string>
+    <string name="error_failed_to_load_notes">加载笔记失败</string>
+    <string name="default_note_title">无标题</string>
+    <string name="title_edit_note">编辑笔记</string>
+    <string name="title_new_note">新建笔记</string>
+    <string name="action_delete">删除</string>
+    <string name="action_back">返回</string>
+    <string name="label_title">标题</string>
+    <string name="label_content">内容</string>
+    <string name="action_save">保存</string>
+    <string name="msg_no_notes">暂无笔记。点击 + 创建一个。</string>
+    <string name="error_prefix">错误: %s</string>
+    <string name="notey_footer">由 %2$s 用 %1$s 制作</string>
+    <string name="notey_footer_heart">❤️</string>
+    <string name="notey_footer_author">2KAbhishek</string>
+</resources>

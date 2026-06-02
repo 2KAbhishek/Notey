@@ -11,7 +11,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App(this)
+            com.iam2kabhishek.notey.locale.ProvidePrioritizedAppResources {
+                App(this)
+            }
         }
     }
 }
