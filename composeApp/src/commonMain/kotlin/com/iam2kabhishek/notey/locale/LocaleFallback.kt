@@ -2,15 +2,7 @@ package com.iam2kabhishek.notey.locale
 
 import kotlin.jvm.JvmInline
 
-private const val LANG_ZH = "zh"
-private const val SCRIPT_HANS = "Hans"
-private const val SCRIPT_HANT = "Hant"
-
 private val TRADITIONAL_CHINESE_REGIONS = setOf("TW", "HK", "MO")
-
-object SupportedLocales {
-    val supported: Set<String> = setOf("es", "hi", "zh-CN", "zh-TW")
-}
 
 /**
  * A type-safe, normalized BCP-47 locale tag (e.g., "en-US", "es", "zh-Hans-CN").
@@ -24,27 +16,30 @@ value class AppLocale(val tag: String) {
 
     val language: String get() = tag.substringBefore('-')
 
-    val script: String? get() {
-        val parts = tag.split('-')
-        if (parts.size <= 1) return null
-        return parts.drop(1).firstOrNull { isScriptSegment(it) }
-    }
-
-    val region: String? get() {
-        val parts = tag.split('-')
-        if (parts.size <= 1) return null
-        val regionPart = parts.drop(1).firstOrNull { isRegionSegment(it) }
-        return if (regionPart != null && regionPart.all { it.isDigit() }) regionPart else regionPart?.uppercase()
-    }
-
-    val resolvedScript: String? get() {
-        val explicit = script
-        if (explicit != null) return explicit
-        if (language == LANG_ZH) {
-            return if (region in TRADITIONAL_CHINESE_REGIONS) SCRIPT_HANT else SCRIPT_HANS
+    val script: String?
+        get() {
+            val parts = tag.split('-')
+            if (parts.size <= 1) return null
+            return parts.drop(1).firstOrNull { isScriptSegment(it) }
         }
-        return null
-    }
+
+    val region: String?
+        get() {
+            val parts = tag.split('-')
+            if (parts.size <= 1) return null
+            val regionPart = parts.drop(1).firstOrNull { isRegionSegment(it) }
+            return if (regionPart != null && regionPart.all { it.isDigit() }) regionPart else regionPart?.uppercase()
+        }
+
+    val resolvedScript: String?
+        get() {
+            val explicit = script
+            if (explicit != null) return explicit
+            if (language == "zh") {
+                return if (region in TRADITIONAL_CHINESE_REGIONS) "Hant" else "Hans"
+            }
+            return null
+        }
 
     companion object {
         fun from(raw: String): AppLocale? {
@@ -94,25 +89,25 @@ private fun isScriptSegment(segment: String): Boolean {
 
 private fun isRegionSegment(segment: String): Boolean {
     return (segment.length == 2 && segment.all { it.isLetter() }) ||
-        (segment.length == 3 && segment.all { it.isDigit() })
+            (segment.length == 3 && segment.all { it.isDigit() })
 }
 
 /**
- * Pick the first system locale that matches [supported], most-specific first:
+ * Pick the first system locale that matches [supported] (implicitly including [defaultLocale]),
+ * most-specific first:
  * 1. Exact tag match (e.g., system wants "es-MX", app has "es-MX").
- * 2. Language + Script match (e.g., system wants "zh-Hant", app has "zh-TW" -> resolves to Hant).
- * 3. Language + Region match.
- * 4. Language-only fallback (ensuring script mismatches are avoided).
+ * 2. Matching Region (e.g., system wants "zh-Hans-CN", app has "zh-CN" / "zh-Hans-CN").
+ * 3. Base / Neutral Language (e.g., system wants "en-IN", app has "en" (generic/base)).
+ * 4. Different Region (e.g., system wants "en-IN", app has "en-GB" (fallback)).
  */
 fun pickBestLocale(
     system: List<String>,
     supported: Set<String>,
     defaultLocale: String = "en",
 ): String {
-    val supportedLocales = supported.mapNotNull { AppLocale.from(it) }
-    if (supportedLocales.isEmpty()) {
-        return normalizeLocaleTag(defaultLocale).ifEmpty { "en" }
-    }
+    val defaultNorm = normalizeLocaleTag(defaultLocale).ifEmpty { "en" }
+    val extendedSupported = supported + defaultNorm
+    val supportedLocales = extendedSupported.mapNotNull { AppLocale.from(it) }
 
     for (raw in system) {
         val sys = AppLocale.from(raw) ?: continue
@@ -121,34 +116,39 @@ fun pickBestLocale(
         val exactMatch = supportedLocales.firstOrNull { it.tag == sys.tag }
         if (exactMatch != null) return exactMatch.tag
 
-        // 2. Language + Script match
         val sysScript = sys.resolvedScript
-        val scriptMatch = supportedLocales.firstOrNull { sup ->
-            sup.language == sys.language && sup.resolvedScript == sysScript
-        }
-        if (scriptMatch != null) return scriptMatch.tag
 
-        // 3. Language + Region match
+        // 2. Matching Region
         val regionMatch = supportedLocales.firstOrNull { sup ->
-            sup.language == sys.language && sup.region == sys.region
+            sup.language == sys.language &&
+                    (sysScript == null || sup.resolvedScript == null || sup.resolvedScript == sysScript) &&
+                    sup.region != null && sup.region == sys.region
         }
         if (regionMatch != null) return regionMatch.tag
 
-        // 4. Language only match (fallback)
-        val langMatch = supportedLocales.firstOrNull { sup ->
-            sup.language == sys.language && (sysScript == null || sup.resolvedScript == null || sup.resolvedScript == sysScript)
+        // 3. Base / Neutral Language match (no region)
+        val baseMatch = supportedLocales.firstOrNull { sup ->
+            sup.language == sys.language &&
+                    (sysScript == null || sup.resolvedScript == null || sup.resolvedScript == sysScript) &&
+                    sup.region == null
         }
-        if (langMatch != null) return langMatch.tag
+        if (baseMatch != null) return baseMatch.tag
+
+        // 4. Different Region match (fallback)
+        val diffRegionMatch = supportedLocales.firstOrNull { sup ->
+            sup.language == sys.language &&
+                    (sysScript == null || sup.resolvedScript == null || sup.resolvedScript == sysScript)
+        }
+        if (diffRegionMatch != null) return diffRegionMatch.tag
     }
 
     // Default fallback
-    val defaultNorm = normalizeLocaleTag(defaultLocale).ifEmpty { "en" }
     val defaultLocaleObj = AppLocale.from(defaultNorm)
     if (defaultLocaleObj != null) {
         val match = supportedLocales.firstOrNull { it.tag == defaultLocaleObj.tag }
             ?: supportedLocales.firstOrNull {
                 it.language == defaultLocaleObj.language &&
-                    (defaultLocaleObj.resolvedScript == null || it.resolvedScript == defaultLocaleObj.resolvedScript)
+                        (defaultLocaleObj.resolvedScript == null || it.resolvedScript == defaultLocaleObj.resolvedScript)
             }
         if (match != null) return match.tag
     }

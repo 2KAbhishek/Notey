@@ -40,7 +40,7 @@ class LocaleFallbackTest {
     @Test
     fun pickBest_respectsUserPreference_matchingBaseLanguage() {
         assertEquals(
-            "en-US",
+            "en",
             pickBestLocale(
                 listOf("fr-CA", "en-IN", "es-MX"),
                 setOf("es-MX", "en-US", "hi"),
@@ -98,6 +98,28 @@ class LocaleFallbackTest {
             pickBestLocale(
                 listOf("sr-Cyrl"),
                 setOf("sr-Latn-RS", "sr-Cyrl-RS")
+            )
+        )
+    }
+
+    @Test
+    fun pickBestLocale_preferBaseLanguageOverMismatchedRegion() {
+        assertEquals(
+            "en",
+            pickBestLocale(
+                listOf("en-IN"),
+                setOf("en-GB")
+            )
+        )
+    }
+
+    @Test
+    fun pickBestLocale_userScenario_enIN_bn_esUS() {
+        assertEquals(
+            "en",
+            pickBestLocale(
+                listOf("en-IN", "bn", "es-US"),
+                setOf("es", "hi", "zh-CN", "zh-TW")
             )
         )
     }
