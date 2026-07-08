@@ -1,6 +1,8 @@
 package com.iam2kabhishek.notey.locale
 
 import android.os.LocaleList
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import java.util.Locale
 
 actual fun getSystemPreferredLocales(): List<String> {
@@ -21,10 +23,8 @@ actual fun getSystemPreferredLocales(): List<String> {
 
 actual fun setPlatformDefaultLocale(tag: String) {
     try {
-        val locale = Locale.forLanguageTag(tag)
-        if (Locale.getDefault() != locale) {
-            Locale.setDefault(locale)
-        }
+        val localeList = LocaleListCompat.forLanguageTags(tag)
+        AppCompatDelegate.setApplicationLocales(localeList)
     } catch (_: Exception) {
     }
 }

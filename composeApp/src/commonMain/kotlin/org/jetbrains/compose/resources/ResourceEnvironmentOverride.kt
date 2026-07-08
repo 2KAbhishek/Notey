@@ -34,9 +34,11 @@ fun ProvideResourceEnvironment(
         )
     }
 
-    val newComposeEnv = object : ComposeEnvironment {
-        @Composable
-        override fun rememberEnvironment(): ResourceEnvironment = newEnv
+    val newComposeEnv = remember(newEnv) {
+        object : ComposeEnvironment {
+            @Composable
+            override fun rememberEnvironment(): ResourceEnvironment = newEnv
+        }
     }
 
     CompositionLocalProvider(

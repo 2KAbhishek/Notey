@@ -1,7 +1,6 @@
 package com.iam2kabhishek.notey.locale
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 import org.jetbrains.compose.resources.ProvideResourceEnvironment
 
@@ -13,10 +12,6 @@ fun ProvidePrioritizedAppResources(content: @Composable () -> Unit) {
     val systemLocales = remember { getSystemPreferredLocales() }
     val best = remember(systemLocales) {
         pickBestLocale(systemLocales, SupportedLocales.supported, defaultLocale = "en")
-    }
-
-    SideEffect {
-        setPlatformDefaultLocale(best)
     }
 
     val (language, region) = remember(best) {
