@@ -9,6 +9,10 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockStoreTask>().configureEach {
+    enabled = false
+}
+
 val iosDeveloperDir = providers.gradleProperty("iosDeveloperDir")
     .orElse(providers.environmentVariable("DEVELOPER_DIR"))
     .orElse("/Applications/Xcode.app/Contents/Developer")
