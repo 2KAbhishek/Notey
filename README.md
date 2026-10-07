@@ -30,15 +30,15 @@
 
 </div>
 
-Notey is a Kotlin Multiplatform note-taking app that allows users to create, edit, delete, and persist local notes across Android, iOS, and desktop systems.
+Notey is a Kotlin Multiplatform note-taking app that allows users to create, edit, delete, and persist local notes across Android, iOS, desktop, and web (Wasm & JS).
 
 ## ✨ Features
 
 - Create, edit, and delete notes
-- Persist notes locally with Room KMP and SQLite
-- Shared Compose Multiplatform UI for Android, iOS, and desktop
-- Localized app strings for English, Spanish, and Hindi
-- Gradle tasks for Android, JVM desktop, iOS simulator, and physical iOS device workflows
+- Persist notes locally with Room KMP (SQLite) on Android, iOS, & desktop, and `localStorage` on Web
+- Shared Compose Multiplatform UI across all supported platforms
+- Localized app strings for English, Spanish, Hindi, and Chinese (Simplified & Traditional)
+- Gradle tasks for Android, JVM desktop, iOS simulator, physical iOS device, and Web workflows
 
 ## ⚡ Setup
 
@@ -47,7 +47,8 @@ Notey is a Kotlin Multiplatform note-taking app that allows users to create, edi
 - JDK 21
 - Android SDK with API 36 for Android builds
 - Xcode for iOS builds
-- Android emulator/device or iOS simulator/device for running platform apps
+- Node.js and a modern browser (Chrome, Edge, Firefox, Safari) for Web builds
+- Android emulator/device, iOS simulator/device, or browser for running platform apps
 
 ### 💻 Installation
 
@@ -59,17 +60,34 @@ cd Notey
 ./gradlew :composeApp:checkAll
 ```
 
-## 🚀 Usage
+## 🚀 Running the App
+
+### 📱 Android
+
+Build and install on a connected device or emulator:
 
 ```bash
-USAGE:
-    ./gradlew <task> [OPTIONS]
+./gradlew :composeApp:installDebug
+```
 
-Examples:
-    ./gradlew :composeApp:assembleDebug
-    ./gradlew :composeApp:run
-    ./gradlew iosSimulatorRun -PiosSimulatorId=<simulator-udid>
-    ./gradlew iosDeviceRun -PiosDeviceId=<device-udid>
+Or assemble the APK:
+
+```bash
+./gradlew :composeApp:assembleDebug
+```
+
+### 🍎 iOS
+
+Run on iOS Simulator:
+
+```bash
+./gradlew iosSimulatorRun -PiosSimulatorId=<simulator-udid>
+```
+
+Run on a connected physical iPhone:
+
+```bash
+./gradlew iosDeviceRun -PiosDeviceId=<device-udid>
 ```
 
 Helpful iOS device lookup commands:
@@ -79,6 +97,33 @@ xcrun simctl list devices available
 xcrun xctrace list devices
 ```
 
+### 🖥️ Desktop (JVM)
+
+```bash
+./gradlew :composeApp:run
+```
+
+### 🌐 Web (Wasm & JS)
+
+Run the Wasm version in the browser:
+
+```bash
+./gradlew :composeApp:wasmJsBrowserDevelopmentRun
+```
+
+Run the JavaScript version in the browser:
+
+```bash
+./gradlew :composeApp:jsBrowserDevelopmentRun
+```
+
+Or build production web bundles:
+
+```bash
+./gradlew :composeApp:wasmJsBrowserDistribution
+./gradlew :composeApp:jsBrowserDistribution
+```
+
 ## 🏗️ What's Next
 
 Planning to add search, note timestamps, sorting, share-to-app support, and Markdown export.
@@ -86,8 +131,9 @@ Planning to add search, note timestamps, sorting, share-to-app support, and Mark
 ### ✅ To-Do
 
 - [x] Build core note CRUD flow
-- [x] Add Room KMP persistence
-- [x] Add Android, iOS, and desktop targets
+- [x] Add Room KMP persistence (Android, iOS, Desktop)
+- [x] Add Web (Wasm and JS) targets with `localStorage` persistence
+- [x] Add Android, iOS, desktop, and Web targets
 - [ ] Add search and sort options
 - [ ] Add Markdown export
 
