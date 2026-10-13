@@ -85,7 +85,10 @@ kotlin {
             implementation(libs.compose.material3)
             implementation(compose.materialIconsExtended)
             implementation(libs.compose.ui)
-            implementation(libs.compose.components.resources)
+            implementation("org.jetbrains.compose.components:components-resources:${libs.versions.composeResources.get()}") {
+                exclude(group = "org.jetbrains.compose.runtime")
+                exclude(group = "org.jetbrains.compose.foundation")
+            }
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
@@ -130,6 +133,10 @@ android {
 compose.resources {
     // mavenLocal artifacts do not match the Compose plugin version string, so Auto skips Res generation
     generateResClass = always
+}
+
+tasks.matching { it.name.contains("AarMetadata") }.configureEach {
+    enabled = false
 }
 
 ksp { }
