@@ -29,6 +29,12 @@ kotlin {
         }
     }
     
+    macosArm64 {
+        binaries.executable {
+            entryPoint = "com.iam2kabhishek.notey.main"
+        }
+    }
+    
     jvm()
 
     @OptIn(ExperimentalWasmDsl::class)
@@ -67,6 +73,11 @@ kotlin {
         }
         iosArm64Main.get().dependsOn(iosMain)
         iosSimulatorArm64Main.get().dependsOn(iosMain)
+
+        val macosMain = maybeCreate("macosMain").apply {
+            dependsOn(roomMain)
+        }
+        macosArm64Main.get().dependsOn(macosMain)
 
         val webMain by creating {
             dependsOn(commonMain)
@@ -149,6 +160,7 @@ dependencies {
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspIosSimulatorArm64", libs.androidx.room.compiler)
     add("kspIosArm64", libs.androidx.room.compiler)
+    add("kspMacosArm64", libs.androidx.room.compiler)
     add("kspJvm", libs.androidx.room.compiler)
     debugImplementation(libs.compose.uiTooling)
 }
