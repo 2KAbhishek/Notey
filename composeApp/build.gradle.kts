@@ -60,9 +60,13 @@ kotlin {
             }
         }
         androidMain.get().dependsOn(roomMain)
-        iosArm64Main.get().dependsOn(roomMain)
-        iosSimulatorArm64Main.get().dependsOn(roomMain)
         jvmMain.get().dependsOn(roomMain)
+
+        val iosMain = maybeCreate("iosMain").apply {
+            dependsOn(roomMain)
+        }
+        iosArm64Main.get().dependsOn(iosMain)
+        iosSimulatorArm64Main.get().dependsOn(iosMain)
 
         val webMain by creating {
             dependsOn(commonMain)
